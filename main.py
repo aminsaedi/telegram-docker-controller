@@ -1,8 +1,14 @@
-import os
+import subprocess
 
-lines = os.popen('ls -ltrh ~').readlines()
+result = subprocess.Popen('git log --oneline',
+                          shell=True,
+                          stdout=subprocess.PIPE)
 
-index = 0
+lines = result.stdout.readlines()
+
+
 for line in lines:
-    print(str(index) + '   ' + line)
-    index = index + 1
+    print(line.decode('utf-8'))
+
+
+print(len(lines))
